@@ -1,10 +1,14 @@
 import React, { useEffect } from "react"
 
 function AddRecipe() {
+  useEffect(() => {
+    document.title = "Dodaj przepis"
+  }, [])
+
   return (
-    <body>
+    <>
       <h1>AddRecipe</h1>
-    </body>
+    </>
   )
 }
 

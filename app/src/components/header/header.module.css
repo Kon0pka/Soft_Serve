@@ -1,0 +1,54 @@
+.main {
+  display: flex;
+  background-color: #ffca1f;
+  height: 80px;
+  width: 100%;
+}
+
+.navigation {
+  height: 50%;
+  width: 40%;
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  background-color: white;
+}
+
+.link {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 33%;
+  height: 100%;
+  border: 2px solid black;
+  background-color: #ffffff;
+  color: black;
+}
+
+.active_link {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 33%;
+  height: 100%;
+  border: 2px solid black;
+  background-color: #ffca1f;
+  color: black;
+}
+
+.logo {
+  height: 50%;
+  width: 20%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: white;
+}
+
+.settings {
+  display: flex;
+  justify-content: end;
+  width: 40%;
+  height: 50%;
+  background-color: white;
+}
