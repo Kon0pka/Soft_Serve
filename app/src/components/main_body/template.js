@@ -3,7 +3,7 @@ import React, { useEffect } from "react"
 function Template() {
   return (
     <>
-      <p>to jest template</p>
+      <p>do zrobienia</p>
     </>
   )
 }
