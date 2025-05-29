@@ -1,6 +1,6 @@
 import React, { useEffect } from "react"
 import styles from "./homePage.module.css"
-import { NavLink } from "react-router-dom"
+import { NavLink } from 'react-router-dom'
 
 function HomePage() {
   useEffect(() => {
