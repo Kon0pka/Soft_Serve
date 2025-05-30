@@ -1,17 +1,16 @@
 import React, { useEffect } from "react"
-import { NavLink, useNavigate } from 'react-router-dom'
+import { NavLink, useNavigate } from "react-router-dom"
 import styles from "./header.module.css"
 import LogoStrony from "./LogoStrony.png"
 import Person from "./Person.png"
 
 function Header() {
-
-  const navigate = useNavigate();
+  const navigate = useNavigate()
 
   const handleChange = (e) => {
-    const value = e.target.value;
-    if (value) navigate(value);
-  };
+    const value = e.target.value
+    if (value) navigate(value)
+  }
 
   return (
     <>
@@ -22,7 +21,9 @@ function Header() {
           </NavLink>
 
           <select onChange={handleChange} defaultValue="" className={styles.select}>
-            <option value="" disabled>Wybierz przepis</option>
+            <option value="" disabled>
+              Wybierz przepis
+            </option>
             <option value="/recipe1">Przepis 1</option>
             <option value="/recipe2">Przepis 2</option>
             <option value="/recipe3">Przepis 3</option>
