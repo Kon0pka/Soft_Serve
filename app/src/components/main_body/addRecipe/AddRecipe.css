@@ -2,7 +2,7 @@
   max-width: 800px;
   margin: 20px auto;
   padding: 20px;
-  background-color: #e0e0e0; /* Light grey background */
+  background-color: #e0e0e0;
   border-radius: 8px;
 }
 
@@ -36,28 +36,28 @@
 
 .form-group input[type="text"],
 .form-group textarea {
-  width: calc(100% - 12px); /* Adjust for padding and border */
+  width: calc(100% - 12px);
   padding: 8px;
   border: 1px solid #ccc;
   border-radius: 4px;
 }
 
 .form-group textarea {
-  min-height: 150px; /* Adjust as needed */
+  min-height: 150px;
   resize: vertical;
 }
 
 .form-group .choose-file-button {
     display: inline-block;
     padding: 8px 12px;
-    background-color: #ccc; /* Grey button */
+    background-color: #ccc;
     border: 1px solid #aaa;
     border-radius: 4px;
     cursor: pointer;
 }
 
 .form-group .choose-file-button input[type="file"] {
-    display: none; /* Hide the default file input */
+    display: none;
 }
 
 
@@ -67,13 +67,12 @@
     gap: 10px;
 }
 
-/* Removed styles for select to revert to default appearance */
 
-.form-group .select-like .choose-button { /* This rule is now less relevant but kept for safety */
-    padding: 8px 12px; /* Adjusted padding */
-    background-color: #ccc; /* Grey button */
-    border: 1px solid #aaa; /* Adjusted border */
-    border-radius: 4px; /* Adjusted border-radius */
+.form-group .select-like .choose-button {
+    padding: 8px 12px;
+    background-color:
+    border: 1px solid #aaa;
+    border-radius: 4px;
     cursor: pointer;
 }
 
@@ -90,11 +89,11 @@
 }
 
 .submit-section button {
-  padding: 8px 12px; /* Adjusted padding */
-  background-color: #ccc; /* Grey button */
-  border: 1px solid #aaa; /* Adjusted border */
-  border-radius: 4px; /* Adjusted border-radius */
+  padding: 8px 12px;
+  background-color: #ccc;
+  border: 1px solid #aaa;
+  border-radius: 4px;
   cursor: pointer;
   font-size: 16px;
-  font-weight: normal; /* Removed bold */
+  font-weight: normal;
 } 
