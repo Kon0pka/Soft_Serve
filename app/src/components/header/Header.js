@@ -3,6 +3,7 @@ import { NavLink, useNavigate } from "react-router-dom"
 import styles from "./header.module.css"
 import LogoStrony from "./LogoStrony.png"
 import Person from "./Person.png"
+import CategoryMenu from "./CategoryMenu"
 
 function Header(props) {
   const navigate = useNavigate()
@@ -20,18 +21,7 @@ function Header(props) {
             Strona główna
           </NavLink>
 
-          <select onChange={handleChange} defaultValue="" className={styles.select}>
-            <option value="" disabled>
-              Wybierz przepis
-            </option>
-            {props.recipes.map((recipe) => (
-              <option value={recipe._id}>{recipe.nazwa}</option>
-            ))}
-            <option value="/recipe1">Przepis 1</option>
-            <option value="/recipe2">Przepis 2</option>
-            <option value="/recipe3">Przepis 3</option>
-            <option value="/recipe4">Przepis 4</option>
-          </select>
+          <CategoryMenu />
 
           <NavLink className={({ isActive }) => (isActive ? styles.active_link : styles.link)} to="add_recipe">
             Dodaj własny przepis
