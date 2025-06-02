@@ -4,7 +4,7 @@ import styles from "./header.module.css"
 import LogoStrony from "./LogoStrony.png"
 import Person from "./Person.png"
 
-function Header() {
+function Header(props) {
   const navigate = useNavigate()
 
   const handleChange = (e) => {
@@ -24,6 +24,9 @@ function Header() {
             <option value="" disabled>
               Wybierz przepis
             </option>
+            {props.recipes.map((recipe) => (
+              <option value={recipe._id}>{recipe.nazwa}</option>
+            ))}
             <option value="/recipe1">Przepis 1</option>
             <option value="/recipe2">Przepis 2</option>
             <option value="/recipe3">Przepis 3</option>

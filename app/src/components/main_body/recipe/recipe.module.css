@@ -36,3 +36,8 @@ ul {
   font-size: 50px;
   color: gold;
 }
+
+.przepis {
+  display: flex;
+  flex-wrap: wrap;
+}
