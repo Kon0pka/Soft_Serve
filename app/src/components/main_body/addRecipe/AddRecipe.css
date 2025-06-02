@@ -1,0 +1,100 @@
+.add-recipe-container {
+  max-width: 800px;
+  margin: 20px auto;
+  padding: 20px;
+  background-color: #e0e0e0; /* Light grey background */
+  border-radius: 8px;
+}
+
+.add-recipe-container h2 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.form-section {
+  display: flex;
+  gap: 20px;
+}
+
+.form-left,
+.form-right {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.form-group {
+  margin-bottom: 15px;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: bold;
+}
+
+.form-group input[type="text"],
+.form-group textarea {
+  width: calc(100% - 12px); /* Adjust for padding and border */
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.form-group textarea {
+  min-height: 150px; /* Adjust as needed */
+  resize: vertical;
+}
+
+.form-group .choose-file-button {
+    display: inline-block;
+    padding: 8px 12px;
+    background-color: #ccc; /* Grey button */
+    border: 1px solid #aaa;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.form-group .choose-file-button input[type="file"] {
+    display: none; /* Hide the default file input */
+}
+
+
+.form-group .select-like {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+/* Removed styles for select to revert to default appearance */
+
+.form-group .select-like .choose-button { /* This rule is now less relevant but kept for safety */
+    padding: 8px 12px; /* Adjusted padding */
+    background-color: #ccc; /* Grey button */
+    border: 1px solid #aaa; /* Adjusted border */
+    border-radius: 4px; /* Adjusted border-radius */
+    cursor: pointer;
+}
+
+.submit-section {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  margin-top: 20px;
+  gap: 10px;
+}
+
+.submit-section input[type="checkbox"] {
+  margin-right: 5px;
+}
+
+.submit-section button {
+  padding: 8px 12px; /* Adjusted padding */
+  background-color: #ccc; /* Grey button */
+  border: 1px solid #aaa; /* Adjusted border */
+  border-radius: 4px; /* Adjusted border-radius */
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: normal; /* Removed bold */
+} 
