@@ -38,7 +38,7 @@ function App() {
     <BrowserRouter>
       <Header recipes={recipes} />
       <Routes>
-        <Route path="/" element={<HomePage />} />
+        <Route path="/" element={<HomePage recipes={recipes} />} />
         {recipes.map((recipe) => (
           <Route path={recipe._id} element={<RecipeTemplate recipe={recipe} />} />
         ))}

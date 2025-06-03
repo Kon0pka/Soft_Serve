@@ -21,7 +21,7 @@ function Header(props) {
             Strona główna
           </NavLink>
 
-          <CategoryMenu />
+          <CategoryMenu recipes={props.recipes} />
 
           <NavLink className={({ isActive }) => (isActive ? styles.active_link : styles.link)} to="add_recipe">
             Dodaj własny przepis

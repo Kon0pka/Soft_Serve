@@ -1,8 +1,16 @@
-import React, { useEffect } from "react"
+import React, { useEffect, useState } from "react"
 import styles from "./homePage.module.css"
-import { NavLink } from 'react-router-dom'
+import { NavLink } from "react-router-dom"
 
-function HomePage() {
+function HomePage(props) {
+  const [popularRecipes, setPopularRecipes] = useState([])
+
+  useEffect(() => {
+    const sortedRecipes = [...props.recipes].sort((a, b) => b.ocena - a.ocena)
+    const topRecipes = sortedRecipes.slice(0, 4)
+    setPopularRecipes(topRecipes)
+  }, [props.recipes])
+
   useEffect(() => {
     document.title = "Strona główna"
   }, [])
@@ -26,21 +34,15 @@ function HomePage() {
         </NavLink>
       </div>
       {/* popularne przepis */}
+      popularne
       <div className={styles.pupularne}>
-        <NavLink to="/template" className={styles.element}>
-          <h3 className={styles.elementText}>Example</h3>
-        </NavLink>
-        <NavLink to="/template" className={styles.element}>
-          <h3 className={styles.elementText}>Example</h3>
-        </NavLink>
-        <h2 className={styles.text}>Popularne przepisy</h2>
-        <NavLink to="/template" className={styles.element}>
-          <h3 className={styles.elementText}>Example</h3>
-        </NavLink>
-        <NavLink to="/template" className={styles.element}>
-          <h3 className={styles.elementText}>Example</h3>
-        </NavLink>
+        {popularRecipes.map((recipe) => (
+          <NavLink to={recipe._id} className={styles.element}>
+            <h3 className={styles.elementText}>{recipe.nazwa}</h3>
+          </NavLink>
+        ))}
       </div>
+      {/* popularne przepis */}
     </div>
   )
 }
