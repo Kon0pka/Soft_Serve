@@ -1,94 +1,238 @@
-import React, { useEffect } from "react"
+import React, { useEffect, useState } from "react"
 import './AddRecipe.css';
 
 function AddRecipe() {
+  const [recipeData, setRecipeData] = useState({
+    nazwa: '',
+    poziom: '',
+    czas: '',
+    składniki: [''],
+    przepis: '',
+    img: '',
+    ocena: 5,
+    ilosc: '',
+    kategoria: ''
+  });
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setRecipeData(prev => ({
+      ...prev,
+      [name]: value
+    }));
+  };
+
+  const handleIngredientChange = (index, value) => {
+    const newIngredients = [...recipeData.składniki];
+    newIngredients[index] = value;
+    setRecipeData(prev => ({
+      ...prev,
+      składniki: newIngredients
+    }));
+  };
+
+  const addIngredient = () => {
+    setRecipeData(prev => ({
+      ...prev,
+      składniki: [...prev.składniki, '']
+    }));
+  };
+
+  const removeIngredient = (index) => {
+    const newIngredients = recipeData.składniki.filter((_, i) => i !== index);
+    setRecipeData(prev => ({
+      ...prev,
+      składniki: newIngredients
+    }));
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    console.log('Submitting...');
+    console.log('Recipe Data:', recipeData);
+    try {
+      const response = await fetch('http://localhost:5000/api/recipes', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(recipeData),
+      });
+      const data = await response.json();
+      console.log('Server response:', data);
+      if (response.ok) {
+        alert('Przepis zapisany!');
+      
+      } else {
+        alert('Błąd podczas zapisywania przepisu.');
+      }
+    } catch (error) {
+      alert('Błąd połączenia z serwerem.');
+      console.error('Fetch error:', error);
+    }
+  };
+
   useEffect(() => {
     document.title = "Dodaj przepis"
   }, [])
 
   return (
-    <>
-      <div className="add-recipe-container">
+    <form onSubmit={handleSubmit} className="add-recipe-container">
         <h2>Dodaj własny przepis</h2>
-          <div className="form-section">
-            <div className="form-left">
-              <div className="form-group">
-                <p>Nazwa potrawy</p>
-                <br />
-                <input type="text" id="dish_name" name="dish_name" />
-              </div>
-
-              <div className="form-group">
-                <p>Składniki i przygotowanie</p>
-                <br />
-                <textarea id="ingredients_instructions" name="skladniki" rows="10"></textarea>
-              </div>
-
-                <div className="form-group">
-                    <p>Wybierz zdjęcie</p>
-                    <br />
-                    <label htmlFor="choose_image" className="choose-file-button">
-                      Choose...
-                      <input type="file" id="choose_image" name="wybierz_zdjecie" accept="image/*" />
-                    </label>
-                </div>
-
-            </div>
-
-            <div className="form-right">
-                <div className="form-group select-like">
-                    <p>Rodzaj przepisu</p>
-                    <br />
-                    <select id="recipe_type" name="recipe_type">
-                      <option value="" disabled selected hidden>--Wybierz rodzaj--</option>
-                      <option value="breakfast">Śniadanie</option>
-                      <option value="lunch">Objad</option>
-                      <option value="dinner">Kolacja</option>
-                      <option value="dessert">Deser</option>
-                      <option value="snack">Przekąska</option>
-                      <option value="drink">Napój</option>
-                      <option value="other">Inne</option>
-                    </select>
-              </div>
-
-              <div className="form-group select-like">
-                  <p>Czas przygotowania przepisu</p>
-                  <br />
-                  <select id="preparation_time" name="czas_gotowania">
-                    <option value="" disabled selected hidden>--Wybierz czas--</option>
-                    <option value="5-15min">5-15min</option>
-                    <option value="15-30min">15-30min</option>
-                    <option value="30-45min">30-45min</option>
-                    <option value="1hour">1 godz</option>
-                    <option value="1.5hour">1,5 godz</option>
-                    <option value="1.5hour+">1,5 godz +</option>
-                  </select>
-              </div>
-
-              <div className="form-group select-like">
-                <p>Wybierz poziom trudności</p>
-                <br />
-                <select id="difficulty_level" name="poziom_zaawansowania">
-                  <option value="" disabled selected hidden>--Wybierz poziom--</option>
-                  <option value="basic">Podstawowy</option>
-                  <option value="medium">Średni</option>
-                  <option value="intermediate">Średnio-zaawansowany</option>
-                  <option value="advanced">Zaawansowany</option>
-                </select>
-              </div>
-
-              <div className="form-group">
-                <p>Ilość porcji</p>
-                <br />
-                <input type="text" id="number_of_portions" name="ilosc_porcji" />
-              </div>
-            </div>
+      <div className="form-section">
+        <div className="form-left">
+          <div className="form-group">
+            <label htmlFor="nazwa">Nazwa potrawy</label>
+            <input 
+              type="text" 
+              id="nazwa" 
+              name="nazwa" 
+              value={recipeData.nazwa}
+              onChange={handleInputChange}
+              required
+            />
           </div>
-          <div className="submit-section">
-            <button>Zatwierdź</button>
+
+          <div className="form-group">
+            <label>Składniki</label>
+            {recipeData.składniki.map((ingredient, index) => (
+              <div key={index} className="ingredient-input">
+                <input
+                  type="text"
+                  value={ingredient}
+                  onChange={(e) => handleIngredientChange(index, e.target.value)}
+                  placeholder="Dodaj składnik"
+                />
+                {index > 0 && (
+                  <button 
+                    type="button" 
+                    onClick={() => removeIngredient(index)}
+                    className="remove-ingredient"
+                  >
+                    X
+                  </button>
+                )}
+              </div>
+            ))}
+            <button 
+              type="button" 
+              onClick={addIngredient}
+              className="add-ingredient"
+            >
+              + Dodaj składnik
+            </button>
           </div>
+
+          <div className="form-group">
+            <label htmlFor="przepis">Przepis</label>
+            <textarea 
+              id="przepis" 
+              name="przepis" 
+              rows="10"
+              value={recipeData.przepis}
+              onChange={handleInputChange}
+              required
+            ></textarea>
+          </div>
+
+          <div className="form-group">
+            <label htmlFor="img">Zdjęcie</label>
+            <label htmlFor="img" className="choose-file-button">
+              Wybierz zdjęcie...
+              <input 
+                type="file" 
+                id="img" 
+                name="img" 
+                accept="image/*"
+                onChange={(e) => setRecipeData(prev => ({...prev, img: e.target.files[0]?.name || ''}))}
+              />
+            </label>
+          </div>
+        </div>
+
+        <div className="form-right">
+          <div className="form-group">
+            <label htmlFor="kategoria">Kategoria</label>
+            <select 
+              id="kategoria" 
+              name="kategoria"
+              value={recipeData.kategoria}
+              onChange={handleInputChange}
+              required
+            >
+              <option value="" disabled>--Wybierz kategorię--</option>
+              <option value="śniadanie">Śniadanie</option>
+              <option value="obiad">Obiad</option>
+              <option value="kolacja">Kolacja</option>
+              <option value="deser">Deser</option>
+              <option value="przekąska">Przekąska</option>
+              <option value="napój">Napój</option>
+            </select>
+          </div>
+
+          <div className="form-group">
+            <label htmlFor="poziom">Poziom trudności</label>
+            <select 
+              id="poziom" 
+              name="poziom"
+              value={recipeData.poziom}
+              onChange={handleInputChange}
+              required
+            >
+              <option value="" disabled>--Wybierz poziom--</option>
+              <option value="Podstawowy">Podstawowy</option>
+              <option value="Średni">Średni</option>
+              <option value="Średnio-zaawansowany">Średnio-zaawansowany</option>
+              <option value="Zaawansowany">Zaawansowany</option>
+            </select>
+          </div>
+
+          <div className="form-group">
+            <label htmlFor="czas">Czas przygotowania (minuty)</label>
+            <input 
+              type="number" 
+              id="czas" 
+              name="czas"
+              value={recipeData.czas}
+              onChange={handleInputChange}
+              min="1"
+              required
+            />
+          </div>
+
+          <div className="form-group">
+            <label htmlFor="ilosc">Ilość porcji</label>
+            <input 
+              type="number" 
+              id="ilosc" 
+              name="ilosc"
+              value={recipeData.ilosc}
+              onChange={handleInputChange}
+              min="1"
+              required
+            />
+          </div>
+
+          <div className="form-group">
+            <label htmlFor="ocena">Ocena (1-5)</label>
+            <input 
+              type="number" 
+              id="ocena" 
+              name="ocena"
+              value={recipeData.ocena}
+              onChange={handleInputChange}
+              min="1"
+              max="5"
+              required
+            />
+          </div>
+        </div>
       </div>
-    </>
+
+      <div className="submit-section">
+        <button type="submit">Zapisz przepis</button>
+      </div>
+    </form>
   )
 }
 

@@ -35,11 +35,14 @@
 }
 
 .form-group input[type="text"],
-.form-group textarea {
-  width: calc(100% - 12px);
+.form-group input[type="number"],
+.form-group textarea,
+.form-group select {
+  width: 100%;
   padding: 8px;
   border: 1px solid #ccc;
   border-radius: 4px;
+  box-sizing: border-box;
 }
 
 .form-group textarea {
@@ -60,40 +63,52 @@
     display: none;
 }
 
-
-.form-group .select-like {
-    display: flex;
-    align-items: center;
-    gap: 10px;
+.ingredient-input {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 8px;
 }
 
+.ingredient-input input {
+  flex: 1;
+}
 
-.form-group .select-like .choose-button {
-    padding: 8px 12px;
-    background-color: #ccc;
-    border: 1px solid #aaa;
-    border-radius: 4px;
-    cursor: pointer;
+.remove-ingredient {
+  padding: 4px 8px;
+  background-color: #ff4444;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.add-ingredient {
+  padding: 8px 12px;
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-top: 8px;
 }
 
 .submit-section {
   display: flex;
   justify-content: flex-end;
-  align-items: center;
   margin-top: 20px;
-  gap: 10px;
-}
-
-.submit-section input[type="checkbox"] {
-  margin-right: 5px;
 }
 
 .submit-section button {
-  padding: 8px 12px;
-  background-color: #ccc;
-  border: 1px solid #aaa;
+  padding: 10px 20px;
+  background-color: #4CAF50;
+  color: white;
+  border: none;
   border-radius: 4px;
   cursor: pointer;
   font-size: 16px;
-  font-weight: normal;
+  font-weight: bold;
+}
+
+.submit-section button:hover {
+  background-color: #45a049;
 } 
