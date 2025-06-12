@@ -21,7 +21,7 @@ function HomePage(props) {
       <div className={styles.pupularne}>
         {popularRecipes.map((recipe) => (
           // className={styles.element}
-          <NavLink to={recipe._id} style={{ backgroundImage: `url(${recipe.img})`, textDecoration: "none", color: "black", width: "15%", height: "100px", display: "flex", justifyContent: "center", alignItems: "center" }}>
+          <NavLink to={recipe._id} style={{ backgroundImage: `url(${recipe.img})`, backgroundPosition: "center", backgroundRepeat: "no-repeat", backgroundSize: "contain", textDecoration: "none", color: "black", width: "15%", height: "100px", display: "flex", justifyContent: "center", alignItems: "center" }}>
             <h3 className={styles.elementText}>{recipe.nazwa}</h3>
           </NavLink>
         ))}
