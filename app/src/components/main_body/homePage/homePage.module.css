@@ -15,7 +15,7 @@
   align-items: center;
   justify-content: space-evenly;
 }
-.element {
+/* .element {
   text-decoration: none;
   color: black;
   width: 15%;
@@ -25,7 +25,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-}
+} */
 .elementText {
   width: 100%;
   display: flex;
