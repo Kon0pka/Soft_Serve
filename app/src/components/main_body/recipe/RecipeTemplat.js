@@ -39,7 +39,7 @@ function RecipeTemplate(props) {
       </div>
 
       <div className={styles.right}>
-        <img src={props.recipe.img} alt={props.recipe.img} />
+        <img src={props.recipe.img} alt={props.recipe.img} width={300} height={300} />
         <h3>Przepis</h3>
         <p className={styles.przepis}>{props.recipe.przepis}</p>
       </div>
