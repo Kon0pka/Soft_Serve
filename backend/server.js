@@ -1,54 +1,53 @@
-const express = require("express")
-const cors = require("cors")
-const { MongoClient } = require("mongodb")
+const express = require('express');
+const mongoose = require('mongoose');
+const cors = require('cors');
 
-const app = express()
-const PORT = 5000
+const app = express();
+const PORT = 5000;
 
-app.use(cors())
-app.use(express.json())
+const uri = 'mongodb+srv://udemyDb:Author1ze@cluster0.hgfkznf.mongodb.net/UdemyDB?retryWrites=true&w=majority&appName=Cluster0';
 
-const MONGO_URI = "mongodb+srv://udemyDb:Author1ze@cluster0.hgfkznf.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"
-const client = new MongoClient(MONGO_URI)
+mongoose.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true })
+  .then(() => console.log('MongoDB connected!'))
+  .catch(err => console.error('MongoDB connection error:', err));
 
-let messagesCollection
-let recipeCollection
 
-async function startServer() {
+app.use(cors());
+app.use(express.json());
+
+const recipeSchema = new mongoose.Schema({
+  nazwa: String,
+  poziom: String,
+  czas: Number,
+  składniki: [String],
+  przepis: String,
+  img: String,
+  ocena: Number,
+  ilosc: Number,
+  kategoria: String
+});
+
+const Recipe = mongoose.model('Recipe', recipeSchema, 'recipesData');
+
+app.post('/api/recipes', async (req, res) => {
   try {
-    await client.connect()
-    console.log("Connected to MongoDB")
-
-    const db = client.db("UdemyDB") // nazwa bazy danych
-    messagesCollection = db.collection("usersData") // nazwa kolekcji
-    recipeCollection = db.collection("recipesData")
-
-    app.listen(PORT, () => {
-      console.log(`Server is running at http://localhost:${PORT}`)
-    })
+    const recipe = new Recipe(req.body);
+    await recipe.save();
+    res.status(201).json({ message: 'Recipe saved!', recipe });
   } catch (err) {
-    console.error("MongoDB connection failed:", err)
+    res.status(400).json({ error: err.message });
   }
-}
+});
 
-startServer()
-
-// zbiera dane użytkownikuw
-app.get("/api/users", async (req, res) => {
+app.get('/api/recipes', async (req, res) => {
   try {
-    const data = await messagesCollection.find().toArray()
-    res.json(data)
+    const recipes = await Recipe.find();
+    res.json(recipes);
   } catch (err) {
-    res.status(500).json({ error: err.message })
+    res.status(500).json({ error: err.message });
   }
-})
+});
 
-//zbiera wszystkie przepisy
-app.get("/api/recipes", async (req, res) => {
-  try {
-    const data = await recipeCollection.find().toArray()
-    res.json(data)
-  } catch (err) {
-    res.status(500).json({ error: err.message })
-  }
-})
+app.listen(PORT, () => {
+  console.log(`Server running on http://localhost:${PORT}`);
+});
